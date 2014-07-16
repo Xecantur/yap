@@ -1,0 +1,34 @@
+The following is the structure of the folders
+
+pwd/assets {
+    Contains Image and Audio Assets(when i get some)
+    they may be sorted into further subdirs
+}
+
+pwd/src {
+    Contains all code necessary to compile
+    again may be sorted into further subdirs
+    src/gfx {
+        All Graphics related source files
+    }
+    src/audio {
+        All Audio related source files
+    }
+    src/input {
+        All input related source files
+    }
+    src/gameplay {
+        All gameplay related source files
+    }
+    src/physics {
+        All physics related source files
+    }
+}
+
+pwd/Makefile {
+    Compiles the Program
+}
+
+pwd/_Structure_ {
+    Contains Information about folder structures(ie this document)
+}
