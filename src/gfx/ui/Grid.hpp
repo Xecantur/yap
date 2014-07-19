@@ -47,12 +47,12 @@ class Grid
                lastpos = position;
             if(first_iteration != true)
             {
-                    if(cur.col != max_col_size)
+                    if(cur.col != (max_col_size - 1))
                     {
                         position->x = lastpos->x + padding;
                         cur.col++;
                     }
-               else if(cur.col == max_col_size)
+               else if(cur.col == (max_col_size - 1))
                {
                    position->y = lastpos->y + padding;
                    position->x = fx;
@@ -64,7 +64,6 @@ class Grid
                if(first_iteration == true)
                {
                    first_iteration = false;
-                   cur.col = 1;
                }
            }
         }
