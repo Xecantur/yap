@@ -3,75 +3,51 @@
 #include <common.hpp>
 #include <gfx.hpp>
 
+struct tab {
+  int row;
+  int col;
+};
 
-template <typename Element_t>
-class Grid
-{
-    private:
-        std::vector<Element_t> grid;
-        short padding; //num of px on all 4 sides so a 50px x 50px box
-        SDL_Rect pos;
-        short max_row_size;
-        short max_col_size;
-    public:
-        Grid(int x = 0, int y = 0, short pad = 50, short maxRow = 3, short maxCol = 3) 
-        : padding(pad), max_row_size(maxRow), max_col_size(maxCol)
-        {
-            pos.x = x;
-            pos.y = y;
-        };
-        void draw(SDL_Renderer * rnd)
-        {
-            typename std::vector<Element_t>::iterator it = grid.begin();
-            struct table
-            {
-                int row;
-                int col;
-            }cur;
-            cur.row = 0;
-            cur.col = 0;
-            SDL_Rect p;
-            SDL_Rect *position = &p;
-            position->x = pos.x;
-            position->y = pos.y;
-            int fx = position->x; //gotta keep a reference to the first x to reset the grid;
+typedef struct tab table;
+template <typename Element_t> class Grid {
+private:
+  std::vector<Element_t> grid;
+  short padding; // num of px on all 4 sides so a 50px x 50px box
+  SDL_Rect pos;
+  short max_row_size;
+  short max_col_size;
 
-            SDL_Rect *lastpos = position;
-            SDL_Rect *yap = it->getSize();
-            bool first_iteration = true;
-           for(;it != grid.end(); it++)
-           {
-               yap = it->getSize();
-               position->h = yap->h;
-               position->w = yap->w;
-               lastpos = position;
-            if(first_iteration != true)
-            {
-                    if(cur.col != max_col_size)
-                    {
-                        position->x = lastpos->x + padding;
-                        cur.col++;
-                    }
-               else if(cur.col == max_col_size)
-               {
-                   position->y = lastpos->y + padding;
-                   position->x = fx;
-                   cur.row++;
-                   cur.col = 0;
-               }
-            }
-               SDL_RenderCopy(rnd,it->getImage().getImage(),NULL,position);
-               if(first_iteration == true)
-               {
-                   first_iteration = false;
-                   cur.col = 1;
-               }
-           }
-        }
-        void append(Element_t& element)
-        {
-            grid.push_back(element);
-        }
+public:
+  Grid(int x = 0, int y = 0, short pad = 50, short maxRow = 3, short maxCol = 3)
+      : padding(pad), max_row_size(maxRow), max_col_size(maxCol) {
+    pos.x = x;
+    pos.y = y;
+  };
+  void draw(SDL_Renderer *rnd) {
+    typename std::vector<Element_t>::iterator it = grid.begin();
+    SDL_Rect *position = it->getSize();
+    position->x = 0;
+    position->y = 0;
+    SDL_Rect *last = position;
+    table cur;
+    cur.col = 0;
+    cur.row = 0;
+    for (; it != grid.end(); it++) {
+      if (cur.col != max_col_size) {
+        position->x = last->x + padding;
+        cur.col++;
+      } else if (cur.col == max_col_size) {
+        cur.col = 0;
+      }
+      if (cur.row != max_row_size) {
+        position->y = last->y + padding;
+        cur.row++;
+      }
+      SDL_RenderCopy(rnd, it->getImage().getImage(), NULL, position);
+      last = position;
+    }
+  }
+  void append(Element_t &element) { grid.push_back(element); }
 };
 
 #endif // __GRID_HPP__
