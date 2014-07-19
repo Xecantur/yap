@@ -1,5 +1,6 @@
 #include <gfx/gfx.hpp>
-#include <gfx/Menu.hpp>
+#include <gfx/ui/Menu.hpp>
+#include <gfx/ui/Grid.hpp>
 #include <gameplay/game.hpp>
 #include <audio/audio.hpp>
 #include <input/input.hpp>
@@ -18,6 +19,12 @@ int main(int argc, char **argv) {
   bool done = false;
   SDL_Event event;
 
+  if(argc == 0)
+  {
+  }
+  if(argv[0])
+  {
+  }
   World world(b2Vec2(0.0f, 40.0f));
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
     std::cout << "[SDL]: Initializing Error, ";
@@ -46,6 +53,12 @@ int main(int argc, char **argv) {
   plat.getBox().create(world.get(), 82.5f, 16.0f,plat.getImage().getSize());
   platform.getBox().create(world.get(),82.5,16.0f,platform.getImage().getSize());
   test.vel = 90.0f;
+  Grid<sprite> players(0,0,50,3,3);
+  int iter = 0;
+  for(; iter != 9; iter++)
+  {
+      players.append(test);
+  }
   int result = mainMenu.menuLoop(event);
   if(result == 1)
   {
@@ -100,6 +113,7 @@ int main(int argc, char **argv) {
     SDL_RenderClear(render);
     test.draw(render);
     plat.draw(render);
+    players.draw(render);
     platform.draw(render);
     SDL_RenderPresent(render);
  /*while ! done*/ }

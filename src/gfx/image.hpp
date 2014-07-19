@@ -22,9 +22,10 @@ class image
         {
             mImage = image;
         }
-        SDL_Rect& getSize()
+        SDL_Rect * getSize()
         {
-            return mSize;
+            SDL_Rect * tmp = &mSize;
+            return tmp;
         }
         void setPosition(int x, int y)
         {

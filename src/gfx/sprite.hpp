@@ -18,7 +18,7 @@ public:
  void draw(SDL_Renderer * rnd)
  {
     box.update();
-    SDL_Rect * local = &(texture.getSize());
+    SDL_Rect * local = texture.getSize();
     local->x = box.pos.x;
     local->y = box.pos.y;
     SDL_RenderCopy(rnd, texture.getImage(), NULL, local);
@@ -31,6 +31,10 @@ public:
  image& getImage()
  {
      return texture;
+ }
+ SDL_Rect * getSize()
+ {
+     return texture.getSize();
  }
  void setImage(image& img)
  {

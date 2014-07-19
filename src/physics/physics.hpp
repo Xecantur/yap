@@ -36,13 +36,13 @@ class yapbox
             density = d;
             friction = f;
         }
-        void create(b2World& world, float32 hw, float32 hh, SDL_Rect Size)
+        void create(b2World& world, float32 hw, float32 hh, SDL_Rect * Size)
         {
           //debug only
           box.x = hw;
           box.y = hh;
           body = world.CreateBody(&def);
-          shape.SetAsBox(hw,hh, b2Vec2((Size.w / 2) * PTM, (Size.h / 2) * PTM),0.0f);
+          shape.SetAsBox(hw,hh, b2Vec2((Size->w / 2) * PTM, (Size->h / 2) * PTM),0.0f);
           fixdef.shape = &shape;
           fixdef.density = density;
           fixdef.friction = friction;

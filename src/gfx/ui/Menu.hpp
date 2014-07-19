@@ -23,10 +23,10 @@ class MainMenu
         }
         bool startPressed(int x, int y)
         {
-            SDL_Rect bounds = images[2].getSize();
-            if(x >= bounds.x && y >= bounds.y)
+            SDL_Rect *bounds = images[2].getSize();
+            if(x >= bounds->x && y >= bounds->y)
             {
-                if(!(x > (bounds.x + bounds.w)) && !(y > (bounds.y + bounds.h))){
+                if(!(x > (bounds->x + bounds->w)) && !(y > (bounds->y + bounds->h))){
                             return true;
                   }
             }
@@ -83,9 +83,9 @@ int menuLoop(SDL_Event& event)
                 }
         }
         SDL_RenderClear(render);
-        SDL_RenderCopy(render,images[0].getImage(),NULL,&(images[0].getSize()));
-        SDL_RenderCopy(render,images[1].getImage(),NULL,&(images[1].getSize()));
-        SDL_RenderCopy(render,images[2].getImage(),NULL,&(images[2].getSize()));
+        SDL_RenderCopy(render,images[0].getImage(),NULL,images[0].getSize());
+        SDL_RenderCopy(render,images[1].getImage(),NULL,images[1].getSize());
+        SDL_RenderCopy(render,images[2].getImage(),NULL,images[2].getSize());
         SDL_RenderPresent(render);
         }
     }
