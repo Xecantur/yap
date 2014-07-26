@@ -9,15 +9,13 @@ class MyGameWindow : public Window
         bool done = false;
         Texture bg("assets/ui/background.png",0,0,this->getRenderer());
 //        Texture logo("assets/ui/logo.png",250,0,this->getRenderer());
-        Grid<Texture> logos(0,0,170,3,3);
-        Texture * tmp = new Texture("assets/ui/logo.png",250,0,this->getRenderer());
-        logos.append(*tmp);
-        tmp = new Texture("assets/ui/logo.png",250,0,this->getRenderer());
-        logos.append(*tmp);
-        tmp = new Texture("assets/ui/logo.png",250,0,this->getRenderer());
-        logos.append(*tmp);
-        logos.append(*tmp);
-        logos.append(*tmp);
+        Grid<Texture> logos(0,0,10);
+        Texture * tmp = new Texture("assets/ui/logo.png",0,0,this->getRenderer());
+        for(int t = 0; t != 8; t++)
+        {
+          logos.append(*tmp);
+        }
+        logos.gridify();
         uiWindow mainMenu("assets/ui/menu-bg.png",200,135,this->getRenderer());
 //       Sprite  ledge("assets/world/tile2.png",50,20,this->getRenderer());
 //       Player  player("assets/world/Alien.png",50,0,this->getRenderer());
@@ -57,7 +55,7 @@ class MyGameWindow : public Window
 
 int main(int argc, char ** argv)
 {
-    MyGameWindow mgw("Yap",100,100,800,600);
+    MyGameWindow mgw("Yap",100,100,1280,720);
     SDL_Event event;
     mgw.execute(event,NULL);
     SDL_Quit();

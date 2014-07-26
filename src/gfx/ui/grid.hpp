@@ -3,71 +3,80 @@
 #include <common.hpp>
 #include <gfx/gfx_common.hpp>
 
+
 template <typename Element>
 class Grid
 {
+    private:
     protected:
-        std::vector<Element> grid_storage;
-        short padding;
-        short max_row_size;
-        short max_col_size;
-        SDL_Rect * position;
+        std::vector<Element> grid;
+        int padding,gx,gy;
+        SDL_Rect position;
     public:
-        Grid(int x = 0, int y = 0, short pad = 50, short maxRow = 3, short maxCol = 3)
-        : padding(pad), max_row_size(maxRow), max_col_size(maxCol)
+        Grid(int x = 0, int y = 0, int p = 50, int gw = 3, int gh = 3)
         {
-            position = new SDL_Rect;
-            position->x = x;
-            position->y = y;
+            padding = p;
+            position.x = x; //this is the position of the first element
+            position.y = y;
+            gx = gw;
+            gy = gh;
         }
-        ~Grid()
+        void gridify()
         {
-            delete position;
+            typename std::vector<Element>::iterator i;
+            SDL_Rect * current = grid.begin()->getSize();
+            SDL_Rect * last = current;
+            int count = 0, row = 0;
+            for(i = grid.begin(); i != grid.end(); i++)
+            {
+               if(i == grid.begin())
+               {
+#ifdef DEBUG
+                   printf("First Element\n");
+                   printf("X: %d Y: %d\n", i->getSize()->x, i->getSize()->y);
+#endif
+                   i->getSize()->x = position.x;
+                   i->getSize()->y = position.y;
+#ifdef DEBUG
+                   printf("After Assignment(First Element)\n");
+                   printf("X: %d Y: %d\n", i->getSize()->x, i->getSize()->y);
+#endif
+                   last = i->getSize();
+               }
+               else
+               {
+                    if(count != gx)
+                    {
+#ifdef DEBUG
+                        printf("Before assign X: %d\n",i->getSize()->x);
+#endif
+                        i->getSize()->x = last->x + padding;
+#ifdef DEBUG
+                        printf("After assign X: %d\n",i->getSize()->x);
+#endif
+                        count++;
+                    }
+                    else
+                    {
+                        count = 0;
+                        row++;
+                        i->getSize()->x = position.x;
+                        i->getSize()->y = last->x + padding;
+                    }
+               }
+            }
         }
         void update(SDL_Renderer * rnd)
         {
-            typename std::vector<Element>::iterator iter = grid_storage.begin();
-            short row = 0;
-            short col = 1;
-            SDL_Rect * current = new SDL_Rect;
-            SDL_Rect * last = new SDL_Rect;
-            current->x = position->x;
-            current->y = position->y;
-            last = current;
-            int first_x_position = current->x;
-            bool first_time = true;
-            for(; iter != grid_storage.end(); iter++)
+            typename std::vector<Element>::iterator i;
+            for(i = grid.begin(); i != grid.end(); i++)
             {
-                current = iter->getSize();
-//                if(first_time != true)
-                {
-                    if(col != (max_col_size - 1))
-                    {
-                        current->x = last->x + padding;
-                        col++;
-                    }
-                    else if(col == (max_col_size - 1))
-                    {
-                        current->y = last->y + padding;
-                        current->x = first_x_position;
-                        row++;
-                        col = 0;
-                    }
-                }
-                SDL_RenderCopy(rnd, iter->getImage(), NULL, current);
-                last = current;
-                if(first_time == true)
-                {
-                    first_time = false;                
-                }
+            SDL_RenderCopy(rnd, i->getImage(), NULL, i->getSize());
             }
         }
-
         void append(Element& element)
         {
-            grid_storage.push_back(element);
+            grid.push_back(element);
         }
-            
 };
-
 #endif // __GRID_HPP__
