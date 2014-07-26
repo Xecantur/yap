@@ -8,7 +8,10 @@ class MyGameWindow : public Window
     {
         bool done = false;
         Texture bg("assets/ui/background.png",0,0,this->getRenderer());
-        Sprite  ledge("assets/world/tile2.png",50,20,this->getRenderer());
+        Texture logo("assets/ui/logo.png",250,0,this->getRenderer());
+        uiWindow mainMenu("assets/ui/menu-bg.png",200,135,this->getRenderer());
+//       Sprite  ledge("assets/world/tile2.png",50,20,this->getRenderer());
+//       Player  player("assets/world/Alien.png",50,0,this->getRenderer());
         while(!done)
         {
             while(SDL_PollEvent(&event) != 0)
@@ -29,7 +32,10 @@ class MyGameWindow : public Window
             }
             SDL_RenderClear(this->getRenderer());
             bg.update(this->getRenderer());
-            ledge.update(this->getRenderer());
+            logo.update(this->getRenderer());
+            mainMenu.update(this->getRenderer());
+           // ledge.update(this->getRenderer());
+           // player.update(this->getRenderer());
             SDL_RenderPresent(this->getRenderer());
         }
         return true;

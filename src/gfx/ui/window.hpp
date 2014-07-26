@@ -55,7 +55,11 @@ class Window
 };
 
 //class uiWindow is for ui windows like those that contain menus
-class uiWindow
+class uiWindow : public Texture
 {
+    public:
+        uiWindow(std::string texname, int x, int y, SDL_Renderer * rnd) : Texture(texname,x,y,rnd)
+        {
+        }
 };
 #endif // __WINDOW_HPP__
