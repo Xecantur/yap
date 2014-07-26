@@ -24,10 +24,6 @@ class Texture
             size->h = tmp->h;
             SDL_FreeSurface(tmp);
         }
-        ~Texture()
-        {
-            delete size;
-        }
         SDL_Texture * getImage()
         {
             return tex;
