@@ -33,6 +33,7 @@ public:
         if(count != (gx - 1))
         {
             i->getSize()->x = last->x + padding;
+            i->getSize()->y = last->y;
             count++;
         } else {
             count = 0;
