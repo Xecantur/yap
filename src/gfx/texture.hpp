@@ -6,9 +6,11 @@ class Texture
     protected:
         SDL_Rect * size;
         SDL_Texture * tex;
+        std::string title;
     public:
         Texture(std::string texname, int x, int y, SDL_Renderer * rnd)
         {
+            title = texname;
             size = new SDL_Rect;
             size->x = x;
             size->y = y;
@@ -27,6 +29,10 @@ class Texture
         SDL_Texture * getImage()
         {
             return tex;
+        }
+        std::string getTitle()
+        {
+            return title;
         }
         void setImage(SDL_Texture * img_name)
         {

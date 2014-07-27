@@ -9,16 +9,18 @@ class MyGameWindow : public Window
         bool done = false;
         Texture bg("assets/ui/background.png",0,0,this->getRenderer());
 //        Texture logo("assets/ui/logo.png",250,0,this->getRenderer());
-        Grid<Texture> logos(0,0,10);
+        Grid<Texture> logos(0,0,190,3,3);
         Texture * tmp = new Texture("assets/ui/logo.png",0,0,this->getRenderer());
-        for(int t = 0; t != 8; t++)
+        for(int t = 0; t != 9; t++)
         {
           logos.append(*tmp);
+          delete tmp;
+          tmp = new Texture("assets/ui/logo.png",0,0,this->getRenderer());
         }
-        logos.gridify();
         uiWindow mainMenu("assets/ui/menu-bg.png",200,135,this->getRenderer());
-//       Sprite  ledge("assets/world/tile2.png",50,20,this->getRenderer());
-//       Player  player("assets/world/Alien.png",50,0,this->getRenderer());
+//       Sprite  ledge("assets/world/tile2.png",0,0,this->getRenderer());
+  //     Player  player("assets/world/Alien.png",0,0,this->getRenderer());
+       logos.gridify();
         while(!done)
         {
             while(SDL_PollEvent(&event) != 0)
