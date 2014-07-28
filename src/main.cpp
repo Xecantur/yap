@@ -1,6 +1,42 @@
 #include <common.hpp>
 #include <yap.hpp>
 
+void levelSelect(SDL_Renderer * rnd,SDL_Event& event)
+{
+    bool done = false;
+    uiWindow levelSelect("assets/ui/background.png",0,0,rnd);
+    Texture levelbg("assets/ui/menu-bg.png",200,135,rnd);
+    while(!done)
+    {
+        while(SDL_PollEvent(&event) != 0)
+        {
+            if(event.type == SDL_QUIT)
+            {
+                done = true;
+            }
+            if(event.type == SDL_KEYDOWN && event.key.repeat == 0)
+            {
+                switch(event.key.keysym.sym)
+                {
+                    case SDLK_q:
+                        done = true;
+                        break;
+                }
+            }
+        }
+         SDL_RenderClear(rnd);
+        levelSelect.update(rnd);
+        levelbg.update(rnd);
+        SDL_RenderPresent(rnd);
+    }
+}
+
+void startPressed(SDL_Renderer * rnd,SDL_Event& event)
+{
+    levelSelect(rnd,event);
+}
+
+
 class MyGameWindow : public Window
 {
     public:
@@ -8,19 +44,9 @@ class MyGameWindow : public Window
     {
         bool done = false;
         Texture bg("assets/ui/background.png",0,0,this->getRenderer());
-//        Texture logo("assets/ui/logo.png",250,0,this->getRenderer());
-        Grid<Texture> logos(0,0,190,3,3);
-        Texture * tmp = new Texture("assets/ui/logo.png",0,0,this->getRenderer());
-        for(int t = 0; t != 9; t++)
-        {
-          logos.append(*tmp);
-          delete tmp;
-          tmp = new Texture("assets/ui/logo.png",0,0,this->getRenderer());
-        }
+        Texture logo("assets/ui/logo.png",250,0,this->getRenderer());
         uiWindow mainMenu("assets/ui/menu-bg.png",200,135,this->getRenderer());
-//       Sprite  ledge("assets/world/tile2.png",0,0,this->getRenderer());
-  //     Player  player("assets/world/Alien.png",0,0,this->getRenderer());
-       logos.gridify();
+        Button start("assets/ui/startbutton.png",250,150,this->getRenderer());
         while(!done)
         {
             while(SDL_PollEvent(&event) != 0)
@@ -38,14 +64,20 @@ class MyGameWindow : public Window
                             break;
                     }
                 }
+                if(event.type == SDL_MOUSEBUTTONDOWN)
+                {
+                    switch(event.button.button)
+                    {
+                        case SDL_BUTTON_LEFT:
+                            start.onClick(event.motion.x, event.motion.y,startPressed,this->getRenderer(),event);
+                    }
+                }
             }
             SDL_RenderClear(this->getRenderer());
             bg.update(this->getRenderer());
-  //          logo.update(this->getRenderer());
-            logos.update(this->getRenderer());
+            logo.update(this->getRenderer());
             mainMenu.update(this->getRenderer());
-           // ledge.update(this->getRenderer());
-           // player.update(this->getRenderer());
+            start.update(this->getRenderer());
             SDL_RenderPresent(this->getRenderer());
         }
         return true;
@@ -57,7 +89,7 @@ class MyGameWindow : public Window
 
 int main(int argc, char ** argv)
 {
-    MyGameWindow mgw("Yap",100,100,1280,720);
+    MyGameWindow mgw("Yap",100,100,800,600);
     SDL_Event event;
     mgw.execute(event,NULL);
     SDL_Quit();

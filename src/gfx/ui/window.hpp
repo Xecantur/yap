@@ -57,6 +57,8 @@ class Window
 //class uiWindow is for ui windows like those that contain menus
 class uiWindow : public Texture
 {
+    protected:
+        std::vector<Button> buttons;
     public:
         uiWindow(std::string texname, int x, int y, SDL_Renderer * rnd) : Texture(texname,x,y,rnd)
         {

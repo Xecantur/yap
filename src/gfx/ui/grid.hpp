@@ -38,13 +38,7 @@ public:
         } else {
             count = 0;
             i->getSize()->x = position.x;
-#ifdef DEBUG
-            printf("BY: %d\n", i->getSize()->y);
-#endif
             i->getSize()->y = last->y + padding;
-#ifdef DEBUG
-            printf("AY: %d\n", i->getSize()->y);
-#endif
         }
         last = i->getSize();
         }
@@ -54,9 +48,6 @@ public:
     typename std::vector<Element>::iterator i;
     int count = 0;
     for (i = grid.begin(); i != grid.end(); i++) {
-#ifdef DEBUG
-        printf("[Render[%d]] X: %d Y: %d\n",count++,i->getSize()->x, i->getSize()->y);
-#endif
       SDL_RenderCopy(rnd, i->getImage(), NULL, i->getSize());
     }
   }

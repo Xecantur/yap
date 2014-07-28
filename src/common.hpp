@@ -6,5 +6,5 @@
 #include <string>
 #include <cmath>
 #include <stdexcept>
-
+#include <functional>
 #endif // __COMMON_HPP__
