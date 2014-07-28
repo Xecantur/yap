@@ -5,7 +5,13 @@ void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
 {
     bool done = false;
     Player p("assets/world/Alien.png",0,0,rnd,window,event);
-    Sprite l("assets/world/platform.png",150,100,rnd,window,event);
+    Texture l("assets/world/platform.png",0,0,rnd,window);
+    Grid<Texture> ground(0,0,50,3);
+    for(int i = 0; i != 10; i++)
+    {
+        ground.append(l);
+    }
+    ground.gridify();
     while(!done)
     {
         while(SDL_PollEvent(&event) != 0)
@@ -30,7 +36,7 @@ void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
         }
         SDL_RenderClear(rnd);
         p.update();
-        l.update();
+        ground.update();
         SDL_RenderPresent(rnd);
     }
 }

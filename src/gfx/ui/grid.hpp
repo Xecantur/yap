@@ -20,14 +20,16 @@ public:
   }
   void gridify() {
     typename std::vector<Element>::iterator i;
-    SDL_Rect *current = grid.begin()->getSize();
-    SDL_Rect *last = current;
-    int count = 0, row = 0;
+    SDL_Rect *last;
+    int count = 0;
     for (i = grid.begin(); i != grid.end(); i++) {
       if (i == grid.begin()) {
           i->getSize()->x = position.x;
           i->getSize()->y = position.y;
           last = i->getSize();
+#ifdef DEBUG
+          std::cout << "First Grid Element: " << i->getSize()->x << " , " << i->getSize()->y << std::endl;
+#endif
       }
       else {
         if(count != (gx - 1))
