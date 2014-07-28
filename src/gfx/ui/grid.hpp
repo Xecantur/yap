@@ -20,7 +20,7 @@ public:
   }
   void gridify() {
     typename std::vector<Element>::iterator i;
-    SDL_Rect *last;
+    SDL_Rect *last = grid.begin()->getSize();
     int count = 0;
     for (i = grid.begin(); i != grid.end(); i++) {
       if (i == grid.begin()) {
