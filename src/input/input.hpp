@@ -16,7 +16,9 @@ class Input
         SDL_Event * event; 
     private:
     public:
-        virtual void handleEvents();
+        virtual void handleEvents()
+        {
+        }
     Input(SDL_Event& ev) : event(&ev)
     {
     }

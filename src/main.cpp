@@ -4,11 +4,13 @@
 void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
 {
     bool done = false;
-    Player p("assets/world/Alien.png",0,0,rnd,window);
+    Player p("assets/world/Alien.png",0,0,rnd,window,event);
+    Sprite l("assets/world/platform.png",150,100,rnd,window,event);
     while(!done)
     {
         while(SDL_PollEvent(&event) != 0)
         {
+            p.handleEvents();
             if(event.type == SDL_QUIT)
             {
                 done = true;
@@ -28,6 +30,7 @@ void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
         }
         SDL_RenderClear(rnd);
         p.update();
+        l.update();
         SDL_RenderPresent(rnd);
     }
 }
