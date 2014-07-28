@@ -5,7 +5,7 @@
 class Player : public Sprite
 {
     public:
-        Player(std::string texname, int x, int y, SDL_Renderer * rnd) : Sprite(texname,x,y,rnd)
+        Player(std::string texname, int x, int y, SDL_Renderer * rnd,SDL_Window * window) : Sprite(texname,x,y,rnd,window)
         {
         }
 };

@@ -44,11 +44,10 @@ public:
         }
       }
   }
-  void update(SDL_Renderer *rnd) {
+  void update() {
     typename std::vector<Element>::iterator i;
-    int count = 0;
     for (i = grid.begin(); i != grid.end(); i++) {
-      SDL_RenderCopy(rnd, i->getImage(), NULL, i->getSize());
+      SDL_RenderCopy(i->getRenderer(), i->getImage(), NULL, i->getSize());
     }
   }
   void append(Element &element) { grid.push_back(element); }

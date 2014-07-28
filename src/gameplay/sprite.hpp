@@ -6,7 +6,7 @@
 class Sprite : public Texture
 {
     public:
-        Sprite(std::string texname, int x, int y, SDL_Renderer * rnd) : Texture(texname,x,y,rnd)
+        Sprite(std::string texname, int x, int y, SDL_Renderer * rnd,SDL_Window * window) : Texture(texname,x,y,rnd,window)
         {
         }
 

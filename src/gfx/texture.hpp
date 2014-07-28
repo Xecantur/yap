@@ -7,9 +7,13 @@ class Texture
         SDL_Rect * size;
         SDL_Texture * tex;
         std::string title;
+        SDL_Renderer * renderer;
+        SDL_Window * window;
     public:
-        Texture(std::string texname, int x, int y, SDL_Renderer * rnd)
+        Texture(std::string texname, int x, int y, SDL_Renderer * rnd,SDL_Window * wind)
         {
+            renderer = rnd; // no more this->getRenderer() crap
+            window = wind;
             title = texname;
             size = new SDL_Rect;
             size->x = x;
@@ -21,7 +25,7 @@ class Texture
                 SDL_FreeSurface(tmp);
                 throw std::runtime_error("Unable to Load Image: "+texname);
             }
-            tex = SDL_CreateTextureFromSurface(rnd,tmp);
+            tex = SDL_CreateTextureFromSurface(renderer,tmp);
             size->w = tmp->w;
             size->h = tmp->h;
             SDL_FreeSurface(tmp);
@@ -42,10 +46,13 @@ class Texture
         {
             return size;
         }
-        
-        void update(SDL_Renderer * rnd)
+        SDL_Renderer * getRenderer()
         {
-            SDL_RenderCopy(rnd,this->getImage(), NULL, this->getSize());
+            return renderer;
+        }
+        void update()
+        {
+            SDL_RenderCopy(renderer,this->getImage(), NULL, this->getSize());
         }
     private:
 };

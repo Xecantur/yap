@@ -60,7 +60,7 @@ class uiWindow : public Texture
     protected:
         std::vector<Button> buttons;
     public:
-        uiWindow(std::string texname, int x, int y, SDL_Renderer * rnd) : Texture(texname,x,y,rnd)
+        uiWindow(std::string texname, int x, int y, SDL_Renderer * rnd,SDL_Window * window) : Texture(texname,x,y,rnd,window)
         {
         }
 };
