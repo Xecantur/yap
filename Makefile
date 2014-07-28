@@ -7,3 +7,6 @@ all:
 
 debug:
 	g++ src/${OBJ} ${CFLAGS} `sdl2-config --cflags --libs` ${LFLAGS} -o `pwd`/yap -g -DDEBUG -Wextra
+
+release:
+	${CC} src/${OBJ} ${CFLAGS} ${SDL_FLAGS} ${LFLAGS} -o yap -02 -DNO_WARNINGS

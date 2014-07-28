@@ -5,11 +5,13 @@ void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
 {
     bool done = false;
     Player p("assets/world/Alien.png",0,0,rnd,window,event);
-    Texture l("assets/world/platform.png",0,0,rnd,window);
-    Grid<Texture> ground(0,0,50,3);
-    for(int i = 0; i != 10; i++)
+    Texture *l = new Texture("assets/world/platform.png",0,0,rnd,window);
+    Grid<Texture> ground(0,400,200,10);
+    for(int i = 0; i != 4; i++)
     {
-        ground.append(l);
+        ground.append(*l);
+        delete l;
+        l = new Texture("assets/world/platform.png",0,0,rnd,window);
     }
     ground.gridify();
     while(!done)
