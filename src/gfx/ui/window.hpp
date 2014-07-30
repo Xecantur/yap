@@ -2,7 +2,7 @@
 #define __WINDOW_HPP__
 #include <gfx/gfx.hpp>
 #include <common.hpp>
-
+#include <SDL2/SDL_ttf.h>
 // class window is a wrapper for SDL windows
 class Window
 {
@@ -29,6 +29,10 @@ class Window
             {
                 throw std::runtime_error("Couldn't Create Renderer!\n");
             }
+            if(TTF_Init() != 0)
+            {
+                throw std::runtime_error("Couldn't Init TTF subsystem");
+            }
         }
         SDL_Renderer * getRenderer()
         {
@@ -51,6 +55,7 @@ class Window
         {
             SDL_DestroyRenderer(renderer);
             SDL_DestroyWindow(window);
+            TTF_Quit();
         }
 };
 

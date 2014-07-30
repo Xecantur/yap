@@ -1,12 +1,12 @@
 OBJ = main.cpp
 CFLAGS = -Wall -std=c++11 -Isrc/
-LFLAGS = -lSDL2_image -ltinyxml -lBox2D
+LFLAGS = -lSDL2_image -lfreetype -lSDL2_ttf -ltinyxml -lBox2D -lstdc++
 
 all:
-	clang++ src/${OBJ} ${CFLAGS} `sdl2-config --cflags --libs` ${LFLAGS} -o `pwd`/yap
+	${CC} src/${OBJ} ${CFLAGS} `sdl2-config --cflags --libs` ${LFLAGS} -o `pwd`/yap
 
 debug:
-	clang++ src/${OBJ} ${CFLAGS} `sdl2-config --cflags --libs` ${LFLAGS} -o `pwd`/yap -g -DDEBUG -Wextra
+	${CC} src/${OBJ} ${CFLAGS} `sdl2-config --cflags --libs` ${LFLAGS} -o `pwd`/yap -g -DDEBUG -Wextra
 
 release:
 	${CC} src/${OBJ} ${CFLAGS} ${SDL_FLAGS} ${LFLAGS} -o yap -02 -DNO_WARNINGS
