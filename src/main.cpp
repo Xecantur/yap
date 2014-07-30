@@ -4,18 +4,28 @@
 void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
 {
     bool done = false;
-    Player p("assets/world/Alien.png",0,0,rnd,window,event);
-    Texture *l = new Texture("assets/world/platform.png",0,0,rnd,window);
-    Grid<Texture> ground(0,400,200,10);
+    World world(Velocity(0,10));
+    Player p("assets/world/Alien.png",0,0,rnd,window,event,true);
+    p.create(world.get(),22.5f, 29.0f,(*p.getSize()));
+    //world.attachActor(p.getActor());
+    Sprite *l = new Sprite("assets/world/platform.png",0,0,rnd,window,event,false);
+    l->create(world.get(),82.5f, 16.0f, (*l->getSize()));
+    Grid<Sprite> ground(0,400,200,10);
     for(int i = 0; i != 4; i++)
     {
         ground.append(*l);
         delete l;
-        l = new Texture("assets/world/platform.png",0,0,rnd,window);
+        l = new Sprite("assets/world/platform.png",0,0,rnd,window,event,false);
+        l->create(world.get(),82.5f, 16.0f, (*l->getSize()));
     }
     ground.gridify();
     while(!done)
     {
+#ifdef DEBUG
+        std::string stuff;
+        p.debug();
+        std::cin >> stuff;
+#endif
         while(SDL_PollEvent(&event) != 0)
         {
             p.handleEvents();
@@ -36,6 +46,9 @@ void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
                 }
             }
         }
+        p.physics_update();
+        world.get().Step(1.0f / 60.0f, 8, 3);
+        world.get().ClearForces();
         SDL_RenderClear(rnd);
         p.update();
         ground.update();
@@ -83,7 +96,7 @@ void levelSelect(SDL_Renderer * rnd,SDL_Event& event, SDL_Window * window)
                 
             }
         }
-         SDL_RenderClear(rnd);
+        SDL_RenderClear(rnd);
         level_select_window.update();
         level_select_text.update();
         level_select_bg.update();

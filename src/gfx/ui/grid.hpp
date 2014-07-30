@@ -65,11 +65,12 @@ public:
         }
 #endif
 #ifdef DEBUG
-        printf("Render[%d]: at (%d,%d)\n",count++,i->getSize()->x,i->getSize()->y);
+        printf("Render[%d]: at (%d,%d)\n",count,i->getSize()->x,i->getSize()->y);
 #endif
 
       SDL_RenderCopy(i->getRenderer(), i->getImage(), NULL, i->getSize());
       warn_if_same_pos = i->getSize();
+      count++;
     }
   }
   void append(Element &element) { grid.push_back(element); }

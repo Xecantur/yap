@@ -50,7 +50,7 @@ class Texture
         {
             return renderer;
         }
-        void update()
+        virtual void update()
         {
             SDL_RenderCopy(renderer,this->getImage(), NULL, this->getSize());
         }
