@@ -13,6 +13,7 @@ class Sprite : public Texture, public Input, public Actor
         virtual void handleEvents()
         {
         }
+        virtual ~Sprite(){}
 };
 
 #endif // __SPRITE_HPP__

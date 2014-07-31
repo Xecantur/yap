@@ -23,15 +23,17 @@ class Velocity
         }
         Velocity operator+(Velocity rhs)
         {
-            this->x += rhs.x;
-            this->y += rhs.y;
-            return *this;
+            Velocity tmp;
+            tmp.x = this->x + rhs.x;
+            tmp.y = this->y + rhs.y;
+            return tmp;
         }
         Velocity operator-(Velocity rhs)
         {
-            this->x -= rhs.x;
-            this->y -= rhs.y;
-            return *this;
+            Velocity tmp;
+            tmp.x = this->x - rhs.x;
+            tmp.y = this->y - rhs.y;
+            return tmp;
         }
         void operator+=(Velocity rhs)
         {
