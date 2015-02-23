@@ -6,7 +6,7 @@
 void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
 {
     bool done = false;
-    World world(Velocity(0,10));
+    World world(Velocity(0,0));
     Player p("assets/world/Alien.png",0,0,rnd,window,event,true);
     p.create(world.get(),22.5f, 29.0f,(*p.getSize()));
     //world.attachActor(p.getActor());
@@ -56,10 +56,10 @@ void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
                 }
             }
         }
-        p.physics_update();
         world.get().Step(1.0f / 60.0f, 8, 3);
         world.get().ClearForces();
         SDL_RenderClear(rnd);
+        p.physics_update();
         p.update();
         ground.update();
         test.update();

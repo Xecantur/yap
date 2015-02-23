@@ -54,7 +54,9 @@ class Actor
             {
                 std::cout << "Create a body with Actor::create()" << std::endl;
             }
-            position = body->GetPosition();
+            b2Vec2 new_position = this->body->GetPosition();
+	    std::cout << "New X: " << new_position.x << " New Y: " << new_position.y << std::endl;
+	    std::cout << "Old X: " << position.x << " Old Y: " << position.y << std::endl;
         }
         b2Body * getBody()
         {
