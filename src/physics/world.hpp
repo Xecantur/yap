@@ -5,8 +5,6 @@
 class World
 {
     protected:
-        b2Vec2 gravity;
-        b2World world;
         std::vector<Actor *> actors; //bodies to be destroyed
     public:
         World(Velocity grav)
@@ -18,14 +16,12 @@ class World
             std::vector<Actor *>::iterator actor = actors.begin();
             while(actor != actors.end())
             {
-                this->world.DestroyBody((*actor)->getBody());
                 actor++;
             }
         }
 
-        b2World& get()
+        void get()
         {
-            return world;
         }
         void attachActor(Actor * actor)
         {
