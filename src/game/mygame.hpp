@@ -6,19 +6,19 @@
 void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
 {
     bool done = false;
-    World world(Velocity(0,0));
-    Player p("assets/world/Alien.png",0,0,rnd,window,event,true);
-    p.create(world.get(),22.5f, 29.0f,(*p.getSize()));
-    //world.attachActor(p.getActor());
-    Sprite *l = new Sprite("assets/world/platform.png",0,0,rnd,window,event,false);
-    l->create(world.get(),82.5f, 16.0f, (*l->getSize()));
+    World world(cpv(0,-100),1.0f/60.0f);
+    Player p("assets/world/Alien.png",cpv(0,0),cpv(22.5f,29.0f),rnd,window,event,true);
+    p.createBox(world.get(),cpv(22.5f, 29.0f),1.0f,1.0f,(*p.getSize()));
+    //world.attachActor(p);
+    Sprite *l = new Sprite("assets/world/platform.png",cpv(0,0),cpv(20,10),rnd,window,event,false);
+    l->createBox(world.get(),cpv(82.5f,16.0f),0.0f,0.0f, (*l->getSize()));
     Grid<Sprite> ground(0,400,200,10);
     for(int i = 0; i != 4; i++)
     {
         ground.append(*l);
         delete l;
-        l = new Sprite("assets/world/platform.png",0,0,rnd,window,event,false);
-        l->create(world.get(),82.5f, 16.0f, (*l->getSize()));
+        l = new Sprite("assets/world/platform.png",cpv(0,0),cpv(82.5f,16.0f),rnd,window,event,false);
+        l->createBox(world.get(),cpv(82.5f,16.0f),0.0f,0.0f, (*l->getSize()));
     }
     ground.gridify();
     SDL_Color white = {255,255,255, 0};
@@ -57,8 +57,8 @@ void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
             }
         }
 	//physics world update goes here
+	world.update();
         SDL_RenderClear(rnd);
-        p.physics_update();
         p.update();
         ground.update();
         test.update();

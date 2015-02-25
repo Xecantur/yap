@@ -6,14 +6,14 @@ class World
 {
     protected:
 	cpVect grav;
-	cpSpace * world;
+	cpSpace * pworld;
 	cpFloat timestep;
         std::vector<Actor *> actors; //bodies to be destroyed
     public:
         World(cpVect gravity,cpFloat time) : grav(gravity), timestep(time)
     	{
-		world = cpSpaceNew();
-		cpSpaceSetGravity(world,grav);
+		pworld = cpSpaceNew();
+		cpSpaceSetGravity(pworld,grav);
     	}
         ~World()
         {
@@ -22,22 +22,22 @@ class World
             {
                 actor++;
             }
-	    cpSpaceFree(world);
+	    cpSpaceFree(pworld);
         }
 
-        cpSpace  * get()
+        cpSpace * get()
         {
-		return world;
+		return this->pworld;
         }
 	virtual void update()
 	{
 		std::vector<Actor *>::iterator actor = actors.begin();
 		while(actor != actors.end())
 		{
-			actor->update();
+			(*actor)->update();
 			actor++;
 		}
-		cpSpaceStep(world,timestep);
+		cpSpaceStep(pworld,timestep);
 	}
         void attachActor(Actor * actor)
         {

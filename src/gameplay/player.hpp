@@ -5,14 +5,9 @@
 class Player : public Sprite
 {
     protected:
-        Velocity vel;
-        int max_vel;
     public:
-        Player(std::string texname, int x, int y, SDL_Renderer * rnd,SDL_Window * window,SDL_Event& ev, bool isDynamic) : Sprite(texname,x,y,rnd,window,ev,isDynamic)
+        Player(std::string texname, cpVect pos, cpVect size, SDL_Renderer * rnd,SDL_Window * window,SDL_Event& ev, bool isDynamic) : Sprite(texname,pos,size,rnd,window,ev,isDynamic)
         {
-            vel.x = 0;
-            vel.y = 0;
-            max_vel = 5;
         }
         #ifdef DEBUG
         void debug()
@@ -27,16 +22,12 @@ class Player : public Sprite
                 switch(event->key.keysym.sym)
                 {
                 case buttons_w:
-                    this->move(Velocity(0,-max_vel));
                     break;
                 case buttons_s:
-                    this->move(Velocity(0,max_vel));
                     break;
                 case buttons_a:
-                    this->move(Velocity(-max_vel,0));
                     break;
                 case buttons_d:
-                    this->move(Velocity(max_vel,0));
                     break;
                 case buttons_space:
                     break;
@@ -47,16 +38,12 @@ class Player : public Sprite
                 switch(event->key.keysym.sym)
                 {
                     case buttons_w:
-                        this->move(Velocity(0,max_vel));
                         break;
                     case buttons_s:
-                        this->move(Velocity(0,-max_vel));
                         break;
                     case buttons_a:
-                        this->move(Velocity(max_vel,0));
                         break;
                     case buttons_d:
-                        this->move(Velocity(-max_vel,0));
                         break;
                 }
             }

@@ -7,7 +7,7 @@ class Sprite : public Texture, public Input, public Actor
 {
     protected:
     public:
-        Sprite(std::string texname, int x, int y, SDL_Renderer * rnd,SDL_Window * window,SDL_Event& ev,bool isDynamic) : Texture(texname,x,y,rnd,window), Input(ev), Actor(x,y,isDynamic)
+        Sprite(std::string texname, cpVect pos, cpVect size, SDL_Renderer * rnd,SDL_Window * window,SDL_Event& ev,bool isDynamic) : Texture(texname,pos.x,pos.y,rnd,window), Input(ev), Actor(pos,size,isDynamic)
         {
         }
         virtual void handleEvents()
