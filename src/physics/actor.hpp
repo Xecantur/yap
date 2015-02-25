@@ -6,27 +6,49 @@ class Actor
 {
     protected:
     public:
-        Velocity vel;
-        Actor(int x, int y, bool isDynamic)
+        cpVect position;
+	cpVect velocity;
+	cpBody * body;
+	cpShape * shape;
+	cpFloat box_height;
+	cpFloat box_width;
+	cpFloat radius;
+        Actor(cpFloat x, cpFloat y, cpFloat h, cpFloat w, bool isDynamic) :
+	position.x(x), position.y(y), box_height(h), box_width(w)
         {
+		radius = 1;	
         }
+	~Actor()
+	{
+		cpShapeFree(shape);
+		cpBodyFree(body);
+	}
         void setDensity(float density)
         {
         }
         void setFriction(float friction)
         {
+	  cpShapeSetFriction(shape,friction);
         }
-        void create( int  world, float hw, float hh, SDL_Rect Size)
+        void createBox(World world&,cpVect pos,cpFloat mass,cpFloat moment,SDL_Rect Size)
         {
+		body = cpSpaceAddBody(world,cpBodyNew(mass,moment));
+		cpBodySetPos(body,pos);
+		position = pos;
+		shape = cpSpaceAddShape(world, cpBoxShapeNew(body,box_width,box_height,radius);	
         }
-        void physics_update()
+        void update()
         {
+		position = cpBodyGetPos(body);
+		velocity = cpBodyGetVel(body);
         }
-        void * getBody()
+        cpBody * getBody()
         {
+		return body;
         }
-        void move(Velocity vel)
+        void move(cpVect pos)
         {
+	 cpBodySetPos(body,pos);
         }
 };
 
