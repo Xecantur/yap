@@ -8,7 +8,6 @@ class World
         std::vector<Actor *> actors; //bodies to be destroyed
     public:
         World(Velocity grav)
-        : gravity(b2Vec2(grav.x,grav.y)), world(this->gravity)
     {
     }
         ~World()
@@ -20,7 +19,7 @@ class World
             }
         }
 
-        void get()
+        int get()
         {
         }
         void attachActor(Actor * actor)

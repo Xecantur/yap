@@ -10,13 +10,13 @@ class Actor
         Actor(int x, int y, bool isDynamic)
         {
         }
-        void setDensity(float32 density)
+        void setDensity(float density)
         {
         }
-        void setFriction(float32 friction)
+        void setFriction(float friction)
         {
         }
-        void create( world, float32 hw, float32 hh, SDL_Rect Size)
+        void create( int  world, float hw, float hh, SDL_Rect Size)
         {
         }
         void physics_update()

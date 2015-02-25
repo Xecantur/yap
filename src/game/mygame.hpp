@@ -56,8 +56,7 @@ void level_one(SDL_Renderer * rnd, SDL_Event& event, SDL_Window * window)
                 }
             }
         }
-        world.get().Step(1.0f / 60.0f, 8, 3);
-        world.get().ClearForces();
+	//physics world update goes here
         SDL_RenderClear(rnd);
         p.physics_update();
         p.update();

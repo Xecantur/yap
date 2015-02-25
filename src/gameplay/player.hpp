@@ -17,7 +17,7 @@ class Player : public Sprite
         #ifdef DEBUG
         void debug()
         {
-            printf("Player Sprite(%d,%d) bbox(%f,%f) Size(%d,%d)\n--------------------------------------------\n",this->getSize()->x,this->getSize()->y,position.x,position.y,this->getSize()->w,this->getSize()->h);
+//            printf("Player Sprite(%d,%d) bbox(%f,%f) Size(%d,%d)\n--------------------------------------------\n",this->getSize()->x,this->getSize()->y,position.x,position.y,this->getSize()->w,this->getSize()->h);
         }
 #endif
         virtual void handleEvents()
@@ -63,8 +63,6 @@ class Player : public Sprite
         }
         virtual void update()
         {
-            this->getSize()->x = (position.x * MTP);
-            this->getSize()->y = (position.y * MTP);
             SDL_RenderCopy(renderer,this->getImage(), NULL, this->getSize());
         }
 };
